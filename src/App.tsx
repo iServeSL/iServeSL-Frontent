@@ -1,7 +1,7 @@
 import React from "react";
 
-export const App = () => {
-  return <div>App</div>;
+const App = () => {
+  return <div>iServeSL Under Development!</div>;
 };
 
 export default App;
