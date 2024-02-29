@@ -19,7 +19,8 @@ const Welcome = () => {
             </h5>
             <br></br>
             <a
-              className="btn btn-primary btn-lg"
+              href="/home"
+              className="btn btn-success btn-lg"
               style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}
             >
               GET STARTED
