@@ -1,6 +1,7 @@
+//SachinAkash01 - 2024
 import React from "react";
 
-export const Welcome = () => {
+const Welcome = () => {
   return (
     <div className="container d-flex align-items-center justify-content-center vh-100">
       <div
@@ -29,3 +30,5 @@ export const Welcome = () => {
     </div>
   );
 };
+
+export default Welcome;
