@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Monstserrat:wght@200;300;400;500;600;700&display=swap');
 
 .welcomePageContainer {
   background-color: #241000;
@@ -31,4 +32,21 @@
   height: auto;
   margin: auto;
   margin-bottom: 4px;
+}
+
+.dashboard {
+  display: flex;
+  gap: 20px;
+  background: #dde6ed;
+  padding: 20px;
+}
+
+.dashboard--content {
+  background: #fff;
+  flex: 1;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
 }
