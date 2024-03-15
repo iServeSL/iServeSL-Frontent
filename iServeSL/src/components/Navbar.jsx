@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Logo from '../assets/iServeSL.png';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
+  const navigate = useNavigate();
+
+  const registerNavigate = () => {
+    navigate('/signup');
+  };
+
+  const loginNavigate = () => {
+    navigate('/login');
+  }
 
   const handleNav = () => {
     setNav(!nav);
@@ -15,8 +25,8 @@ const Navbar = () => {
       <ul className='hidden md:flex'>
         <li className='p-4 hoverEffect'>Home</li>
         <li className='p-4 hoverEffect'>About</li>
-        <li className='p-4 hoverEffect'>Register</li>
-        <li className='p-4 hoverEffect'>Account</li>
+        <li className='p-4 hoverEffect' onClick={registerNavigate}>Register</li>
+        <li className='p-4 hoverEffect' onClick={loginNavigate}>Account</li>
       </ul>
       <div onClick={handleNav} className='block md:hidden'>
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
@@ -25,8 +35,8 @@ const Navbar = () => {
         <h1 className='w-full text-3xl font-bold text-[#ff7300] m-4'>iServeSL</h1>
           <li className='p-4 border-b border-gray-600'>Home</li>
           <li className='p-4 border-b border-gray-600'>About</li>
-          <li className='p-4 border-b border-gray-600'>Register</li>
-          <li className='p-4 border-b border-gray-600'>Account</li>
+          <li className='p-4 border-b border-gray-600' onClick={registerNavigate}>Register</li>
+          <li className='p-4 border-b border-gray-600' onClick={loginNavigate}>Account</li>
       </ul>
     </div>
   );

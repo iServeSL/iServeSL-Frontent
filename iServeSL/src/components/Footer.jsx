@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FaGithub,
   FaInstagram ,
@@ -6,8 +6,19 @@ import {
   FaLinkedinIn
 } from 'react-icons/fa';
 import Logo from '../assets/iServeSL.png';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const registerNavigate = () => {
+    navigate('/signup');
+  };
+
+  const loginNavigate = () => {
+    navigate('/login');
+  }
+
   return (
     <>
       <div className='max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300'>
@@ -53,8 +64,8 @@ const Footer = () => {
               <ul>
                   <li className='py-2 text-sm hoverEffect text-white'>Home</li>
                   <li className='py-2 text-sm hoverEffect text-white'>About</li>
-                  <li className='py-2 text-sm hoverEffect text-white'>Register</li>
-                  <li className='py-2 text-sm hoverEffect text-white'>Account</li>
+                  <li className='py-2 text-sm hoverEffect text-white' onClick={registerNavigate}>Register</li>
+                  <li className='py-2 text-sm hoverEffect text-white' onClick={loginNavigate}>Account</li>
               </ul>
           </div>
         </div>

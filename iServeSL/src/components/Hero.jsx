@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReactTyped } from 'react-typed';
+import { useNavigate } from 'react-router-dom';
 
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const loginNavigate = () => {
+    navigate('/login');
+  }
+
   return (
     <div className='text-white'>
       <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center'>
@@ -25,7 +32,7 @@ const Hero = () => {
           />
         </div>
         <p className='md:text-2xl text-xl font-bold text-gray-500'>Seamlessly connect with essential government services through our centralized G2C platform.</p>
-        <button className='btnHoverEffect bg-[#ff7300] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black'>Get Started</button>
+        <button className='btnHoverEffect bg-[#ff7300] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black' onClick={loginNavigate}>Get Started</button>
       </div>
     </div>
   );

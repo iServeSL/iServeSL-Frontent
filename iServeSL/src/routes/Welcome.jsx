@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 
 const Welcome = () => {
   return (
-    <div>
+    <div className='welcomePageContainer'>
       <Navbar />
       <Hero />
       <About />
