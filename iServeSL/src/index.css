@@ -25,3 +25,10 @@
   background-color: #EE5701 ;
   cursor: pointer;
 }
+
+.loginLogo {
+  width: 120px;
+  height: auto;
+  margin: auto;
+  margin-bottom: 4px;
+}

@@ -24,8 +24,8 @@ const Footer = () => {
       <div className='max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300'>
         <div>
           <div className="flex justify-start items-center">
-            <img className='w-[100px] my-4' src={ Logo } alt="Logo"/>
-            <h1 className='text-3xl font-bold text-[#ff7300]'>iServeSL</h1>
+            <img className='w-[100px] my-4 -mx-5 mb-0' src={ Logo } alt="Logo"/>
+            <h1 className='text-3xl font-bold mx-6 -mb-3 text-[#ff7300]'>iServeSL</h1>
           </div>
           <p className='py-4'>
             Seamlessly connect with essential government services 
