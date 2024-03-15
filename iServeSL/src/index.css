@@ -3,5 +3,25 @@
 @tailwind utilities;
 
 body {
-  background-color: #000300;
+  background-color: #241000;
+}
+
+.hoverEffect {
+  transition: 0.2;
+}
+
+.hoverEffect:hover {
+  transition: 0.2s;
+  color: hsl(0, 0%, 82%);
+  cursor: pointer;
+}
+
+.btnHoverEffect {
+  transition: 0.3s;
+}
+
+.btnHoverEffect:hover {
+  transition: 0.3s;
+  background-color: #EE5701 ;
+  cursor: pointer;
 }

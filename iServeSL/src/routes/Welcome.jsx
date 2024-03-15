@@ -1,9 +1,7 @@
 import React from 'react'
-import Analytics from '../components/Analytics';
-import Cards from '../components/Cards';
+import About from '../components/About';
 import Footer from '../components/Footer';
 import Hero from '../components/Hero';
-import Newsletter from '../components/Newsletter';
 import Navbar from '../components/Navbar';
 
 const Welcome = () => {
@@ -11,9 +9,7 @@ const Welcome = () => {
     <div>
       <Navbar />
       <Hero />
-      <Analytics />
-      <Newsletter />
-      <Cards />
+      <About />
       <Footer />
     </div>
   )
