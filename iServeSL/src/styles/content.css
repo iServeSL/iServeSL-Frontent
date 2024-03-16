@@ -9,7 +9,7 @@
 }
 
 .header--title {
-    color: #526d82;
+    color: #ff7300;
     font-weight: bold;
     font-size: x-large;
 }
@@ -21,7 +21,7 @@
 }
 
 .search-box {
-    background: #dde6ed;
+    background: #FFC391;
     padding: 8px 10px;
     border-radius: 10px;
     display: flex;
@@ -44,7 +44,7 @@
 }
 
 .notify {
-    background: #dde6ed;
+    background: #FFC391;
     padding: 12px;
     border-radius: 10px;
     color: #969393;
@@ -73,7 +73,7 @@
 
 .card {
     flex: 1;
-    background: #dde6ed;
+    background: #FF9B48;
     padding: 20px;
     border-radius: 10px;
     display: flex;

@@ -8,7 +8,7 @@
 .logo {
     text-align: center;
     padding: 20px;
-    color: #27374d;
+    color: #ff7300;
     align-items: center;
     display: flex;
     gap: 20px;
@@ -20,7 +20,7 @@
 
 .appName {
     font-weight: bold;
-    font-size: larger;
+    font-size: x-large;
 }
 
 .menu--list {
@@ -39,11 +39,11 @@
     padding: 10px;
     border-radius: 10px;
     transition: 0.3s ease-in-out;
-    color: #27374d;
+    color: #ff7300;
 }
 
 .menu--list .item:hover,
 .active {
-    background: #27374d;
-    color: #dde6ed !important;
+    background: #ff7300;
+    color: #fff !important;
 }

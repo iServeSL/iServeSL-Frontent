@@ -2,23 +2,23 @@ import React from 'react'
 import ProfileHeader from './ProfileHeader';
 import '../styles/profile.css';
 import userImage from '../assets/user.jpg';
-import { BiBook } from 'react-icons/bi';
+import { BiEnvelope , BiLock, BiMobile  } from 'react-icons/bi';
 
-const courses = [
+const details = [
     {
-        title: 'Ballerina',
-        duration: '2 Hours',
-        icon: <BiBook />,
+        title: 'Email',
+        data: 'sachin@wso2.com',
+        icon: <BiEnvelope   />,
     },
     {
-        title: 'React.js',
-        duration: '2 Hours',
-        icon: <BiBook />,
+        title: 'Password',
+        data: '********',
+        icon: <BiLock  />,
     },
     {
-        title: 'AI & ML',
-        duration: '2 Hours',
-        icon: <BiBook />,
+        title: 'Contact',
+        data: '+94783439022',
+        icon: <BiMobile  />,
     },
 ]
 
@@ -30,18 +30,18 @@ const Profile = () => {
         <div className='user--profile'>
             <div className='user--detail'>
                 <img src={userImage} alt="" />
-                <h3 className='username'>Sachin Akash</h3>
+                <h3 className='username'>sachinakash_</h3>
                 <span className='profession'>Software Engineer</span>
             </div>
 
-            <div className='user-courses'>
-                {courses.map((courses => (
-                    <div className='course'>
-                        <div className='course-detail'>
-                            <div className='course-cover'>{courses.icon}</div>
-                            <div className='course-name'>
-                                <h5 className='title'>{courses.title}</h5>
-                                <span  className='duration'>{courses.duration}</span>
+            <div className='user-details'>
+                {details.map((details => (
+                    <div className='user'>
+                        <div className='user-detail'>
+                            <div className='user-cover'>{details.icon}</div>
+                            <div className='user-name'>
+                                <h5 className='title'>{details.title}</h5>
+                                <span  className='duration'>{details.data}</span>
                             </div>
                         </div>
                         <div className='action'>:</div>  

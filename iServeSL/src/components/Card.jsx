@@ -1,20 +1,20 @@
 import React from 'react'
-import { BiBuilding, BiLogoAndroid, BiLogoHtml5 } from 'react-icons/bi';
+import { BiSolidConversation } from 'react-icons/bi';
+import { MdOutlineLocalPolice } from 'react-icons/md';
+import { GrUserManager } from "react-icons/gr";
 
 const courses = [
     {
-        title: 'Web Development',
-        icon: <BiLogoHtml5 />
+        title: 'Grama Niladhari Service',
+        icon: <GrUserManager />
     },
     {
-        title: 'App Development',
-        duration: '2 Hours',
-        icon: <BiLogoAndroid />
+        title: 'Police Service',
+        icon: <MdOutlineLocalPolice />
     },
     {
-        title: 'UI & UX',
-        duration: '2 Hours',
-        icon: <BiBuilding />
+        title: 'Online Support',
+        icon: <BiSolidConversation />
     },
 ];
 

@@ -37,12 +37,12 @@
 .dashboard {
   display: flex;
   gap: 20px;
-  background: #dde6ed;
-  padding: 20px;
+  background: #241000;
+  padding: 22px;
 }
 
 .dashboard--content {
-  background: #fff;
+  background: #FFEBDA;
   flex: 1;
   border-radius: 20px;
   padding: 2rem;

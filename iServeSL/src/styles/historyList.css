@@ -5,7 +5,7 @@
 }
 
 .list--header {
-    color: #526d82;
+    color: #ff7300;
 }
 
 .list--header select {
@@ -44,7 +44,7 @@
     border-radius: 50%;
 }
 .list:hover {
-    background: #dde6ed;
+    background: #FF9B48;
     border-radius: 10px;
 }
 
