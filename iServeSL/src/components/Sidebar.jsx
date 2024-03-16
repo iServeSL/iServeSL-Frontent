@@ -2,12 +2,12 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { 
     BiHome,
-    BiMessage,
     BiSolidReport,
-    BiStats,
-    BiTask,
-    BiSolidConversation 
+    BiSolidConversation,
+    BiLogOut
 } from 'react-icons/bi';
+import { IoIosSend } from "react-icons/io";
+import { MdReportProblem } from "react-icons/md";
 import "../styles/sidebar.css";
 import Logo from '../assets/iServeSL.png';
 
@@ -31,15 +31,29 @@ const Sidebar = () => {
                     Dashboard
                 </a>
                 <a href='#' className='item'>
+                    <IoIosSend className='icon' />
+                    Requests
+                </a>
+                <a href='#' className='item'>
                     <BiSolidReport className='icon' />
                     User Guide
+                </a>
+                <a href='#' className='item'>
+                    <MdReportProblem className='icon' />
+                    Feedback
                 </a>
                 <a href='#' className='item'>
                     <BiSolidConversation  className='icon' />
                     Online Support
                 </a>
             </div>
-        </div>
+            <div className="logout-menu">
+                <a href='#' className='item active'>
+                    <BiLogOut  className='icon-logout' />
+                    Logout
+                </a>
+            </div>
+            </div>
     )
 }
 

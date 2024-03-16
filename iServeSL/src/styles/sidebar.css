@@ -7,7 +7,7 @@
 
 .logo {
     text-align: center;
-    padding: 20px;
+    padding: 15px;
     color: #ff7300;
     align-items: center;
     display: flex;
@@ -46,4 +46,26 @@
 .active {
     background: #ff7300;
     color: #fff !important;
+}
+
+.logout-menu {
+    margin-top: 50px; /* Push the logout menu to the bottom */
+}
+
+.logout-menu .item {
+    background: #00CC5B;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    color: black !important;
+}
+
+.logout-menu .item:hover{
+    background: #00FF72;
 }
