@@ -1,71 +1,71 @@
 .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 2.3rem;
-    height: 94vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.3rem;
+  height: 94vh;
 }
 
 .logo {
-    text-align: center;
-    padding: 15px;
-    color: #ff7300;
-    align-items: center;
-    display: flex;
-    gap: 20px;
+  text-align: center;
+  padding: 15px;
+  color: #ff7300;
+  align-items: center;
+  display: flex;
+  gap: 20px;
 }
 
 .logo-icon {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 
 .appName {
-    font-weight: bold;
-    font-size: x-large;
+  font-weight: bold;
+  font-size: x-large;
 }
 
 .menu--list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .menu--list .item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 1.1rem;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 10px;
-    transition: 0.3s ease-in-out;
-    color: #ff7300;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  color: #ff7300;
 }
 
 .menu--list .item:hover,
 .active {
-    background: #ff7300;
-    color: #fff !important;
+  background: #ff7300;
+  color: #fff !important;
 }
 
 .logout-menu {
-    margin-top: 50px; /* Push the logout menu to the bottom */
+  margin-top: 50px; /* Push the logout menu to the bottom */
 }
 
 .logout-menu .item {
-    background: #00CC5B;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 1.1rem;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 10px;
-    transition: 0.3s ease-in-out;
-    color: black !important;
+  background: #00cc5b;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  color: black !important;
 }
 
-.logout-menu .item:hover{
-    background: #00FF72;
+.logout-menu .item:hover {
+  background: #00ff72;
 }

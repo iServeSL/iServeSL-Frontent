@@ -1,104 +1,104 @@
 .profile {
-    flex: 1;
+  flex: 1;
 }
 
 .profile--header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .edit {
-    background: #FFC391;
-    padding: 12px;
-    border-radius: 10px;
-    color: #969393;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: #ffc391;
+  padding: 12px;
+  border-radius: 10px;
+  color: #969393;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .edit .icon {
-    font-size: 20px;
-    transition: 0.5s ease-in-out;
+  font-size: 20px;
+  transition: 0.5s ease-in-out;
 }
 
 .user--profile {
-    height: 85%;
-    margin-top: 2rem;
-    background: #241000;
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
+  height: 85%;
+  margin-top: 2rem;
+  background: #241000;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .user--detail {
-    width: 100%;
-    height: 250px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .user--detail img {
-    background: #fff;
-    border-radius: 50%;
-    width: 150px;
-    height: 160px;
-    margin-bottom: 10px;
+  background: #fff;
+  border-radius: 50%;
+  width: 150px;
+  height: 160px;
+  margin-bottom: 10px;
 }
 
 .user--detail .username {
-    color: #526d82;
+  color: #526d82;
 }
 
 .user-details {
-    background: #fff;
-    flex: 1;
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  background: #fff;
+  flex: 1;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .user {
-    background: #dde6ed;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 10px;
+  background: #dde6ed;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
 }
 
 .user-detail {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .user-cover {
-    background: #fff;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 20px;
+  background: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 20px;
 }
 
 .user .duration {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .user .action {
-    font-weight: 900;
-    font-size: 1.2rem;
+  font-weight: 900;
+  font-size: 1.2rem;
 }
 
 .profession {
-    color: #969393;
+  color: #969393;
 }
