@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Monstserrat:wght@200;300;400;500;600;700&display=swap");
+
+.welcomePageContainer {
+  background-color: #241000;
+}
+
+.hoverEffect {
+  transition: 0.2;
+}
+
+.hoverEffect:hover {
+  transition: 0.2s;
+  color: hsl(0, 0%, 82%);
+  cursor: pointer;
+}
+
+.btnHoverEffect {
+  transition: 0.3s;
+}
+
+.btnHoverEffect:hover {
+  transition: 0.3s;
+  background-color: #ee5701;
+  cursor: pointer;
+}
+
+.loginLogo {
+  width: 120px;
+  height: auto;
+  margin: auto;
+  margin-bottom: 4px;
+}
+
+.dashboard {
+  display: flex;
+  gap: 20px;
+  background: #241000;
+  padding: 22px;
+}
+
+.dashboard--content {
+  background: #ffebda;
+  flex: 1;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
