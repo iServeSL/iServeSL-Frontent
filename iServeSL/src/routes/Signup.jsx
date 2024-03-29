@@ -1,9 +1,43 @@
 import React, { useState } from "react";
 import Logo from "../assets/iServeSL.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
+
+  const [newUser, setNewUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    profession: "",
+    contact: "",
+  });
+
+  const addUser = async () => {
+    try {
+      e.preventDefault();
+      await axios.post("http://localhost:3001/api/user", newUser);
+      setNewUser({
+        username: "",
+        email: "",
+        password: "",
+        profession: "",
+        contact: "",
+      });
+      loginNavigate();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewUser((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const loginNavigate = () => {
     navigate("/login");
@@ -43,6 +77,8 @@ const Signup = () => {
                     id="username"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="john"
+                    value={newUser.username}
+                    onChange={handleChange}
                     required=""
                   />
                 </div>
@@ -59,6 +95,8 @@ const Signup = () => {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@email.com"
+                    value={newUser.email}
+                    onChange={handleChange}
                     required=""
                   />
                 </div>
@@ -77,6 +115,8 @@ const Signup = () => {
                     id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={newUser.password}
+                    onChange={handleChange}
                     required=""
                   />
                 </div>
@@ -111,6 +151,8 @@ const Signup = () => {
                     id="profession"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="lecturer"
+                    value={newUser.profession}
+                    onChange={handleChange}
                     required=""
                   />
                 </div>
@@ -128,6 +170,8 @@ const Signup = () => {
                       id="contact"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 pl-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="xxxxxxxxx"
+                      value={newUser.contact}
+                      onChange={handleChange}
                       required=""
                     />
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-600 dark:text-gray-400">
@@ -164,6 +208,7 @@ const Signup = () => {
               <button
                 type="submit"
                 className="btnHoverEffect w-full text-white bg-[#ff7300] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-cente dark:focus:ring-primary-800"
+                onClick={addUser}
               >
                 Create an account
               </button>
