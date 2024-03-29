@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const Hero = () => {
   const navigate = useNavigate();
 
-  const loginNavigate = () => {
-    navigate("/login");
+  const registerNavigate = () => {
+    navigate("/signup");
   };
 
   return (
@@ -36,7 +36,7 @@ const Hero = () => {
         </p>
         <button
           className="btnHoverEffect bg-[#ff7300] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black"
-          onClick={loginNavigate}
+          onClick={registerNavigate}
         >
           Get Started
         </button>
