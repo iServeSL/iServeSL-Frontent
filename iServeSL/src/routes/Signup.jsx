@@ -40,6 +40,7 @@ const Signup = () => {
           profession: "",
           contact: "",
         });
+        loginNavigate();
       }
     } catch (error) {
       console.error(error);
