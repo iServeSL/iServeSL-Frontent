@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../assets/iServeSL.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
+  const [emptyFields, setEmptyFields] = useState(false);
+
+  useEffect(() => {
+    const jwtToken = Cookies.get("jwtToken");
+    if (jwtToken) {
+      // User already logged in, navigate to dashboard
+      dashboardNavigate();
+    }
+  }, []);
 
   const registerNavigate = () => {
     navigate("/signup");
@@ -15,6 +29,41 @@ const Login = () => {
 
   const dashboardNavigate = () => {
     navigate("/dashboard");
+  };
+
+  /**
+   * Handles the login process when the user submits the form.
+   * Sends a request to the server for authentication.
+   */
+  const handleLogin = async () => {
+    if (email && password) {
+      try {
+        // Send authentication request to the server
+        const response = await axios.post("http://localhost:3001/api/login", {
+          email: email,
+          password: password,
+        });
+
+        // Extract user email, and JWT token from the response
+        const { token } = response.data;
+
+        // Store the email, and token in cookies
+        Cookies.set("email", email, { expires: 7 });
+        Cookies.set("jwtToken", token, { expires: 1 });
+
+        // Navigate to the dashboard after successful login
+        dashboardNavigate();
+      } catch (error) {
+        // Handle authentication error
+        console.error("Login error:", error);
+        setIncorrectPassword(true);
+        setEmptyFields(false);
+      }
+    } else {
+      // Set validation flags for empty fields
+      setEmptyFields(true);
+      setIncorrectPassword(false);
+    }
   };
 
   return (
@@ -35,23 +84,35 @@ const Login = () => {
             <form className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Email
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  ${
+                    (incorrectPassword || emptyFields) && !email
+                      ? "border-red-500"
+                      : ""
+                  }`}
                   placeholder="name@email.com"
                   required=""
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
+                {(incorrectPassword || emptyFields) && !email && (
+                  <p className="text-red-500 text-xs mt-1">
+                    Email cannot be empty
+                  </p>
+                )}
               </div>
               <div>
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Password
@@ -61,9 +122,26 @@ const Login = () => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  ${
+                    (incorrectPassword || emptyFields) && password
+                      ? "border-red-500"
+                      : ""
+                  }`}
                   required=""
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
+                {(incorrectPassword || emptyFields) && !password && (
+                  <p className="text-red-500 text-xs mt-1">
+                    Password cannot be empty
+                  </p>
+                )}
+                {(incorrectPassword || emptyFields) && password && (
+                  <p className="text-red-500 text-xs mt-1">
+                    Incorrect email or password
+                  </p>
+                )}
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
@@ -78,7 +156,7 @@ const Login = () => {
                   </div>
                   <div className="ml-3 text-sm">
                     <label
-                      for="remember"
+                      htmlFor="remember"
                       className="text-gray-500 dark:text-gray-300"
                     >
                       Remember me
@@ -93,8 +171,8 @@ const Login = () => {
                 </a>
               </div>
               <button
-                type="submit"
-                onClick={dashboardNavigate}
+                type="button"
+                onClick={handleLogin}
                 className="btnHoverEffect w-full text-white bg-[#ff7300] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Sign in
