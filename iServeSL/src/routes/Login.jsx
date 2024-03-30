@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../assets/iServeSL.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,6 +10,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [incorrectPassword, setIncorrectPassword] = useState(false);
   const [emptyFields, setEmptyFields] = useState(false);
+
+  useEffect(() => {
+    const jwtToken = Cookies.get("jwtToken");
+    if (jwtToken) {
+      // User already logged in, navigate to dashboard
+      dashboardNavigate();
+    }
+  }, []);
 
   const registerNavigate = () => {
     navigate("/signup");

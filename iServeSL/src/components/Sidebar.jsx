@@ -10,12 +10,26 @@ import { IoIosSend } from "react-icons/io";
 import { MdReportProblem } from "react-icons/md";
 import "../styles/sidebar.css";
 import Logo from "../assets/iServeSL.png";
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
   const welcomeNavigate = () => {
     navigate("/");
+  };
+
+  const loginNavigate = () => {
+    navigate("/login");
+  };
+
+  const handleLogout = () => {
+    // Performs logout actions by clearing cookies
+    Cookies.remove("jwtToken");
+    Cookies.remove("email");
+
+    // Navigate to the login page after logout
+    loginNavigate();
   };
 
   return (
@@ -52,7 +66,7 @@ const Sidebar = () => {
         </a>
       </div>
       <div className="logout-menu">
-        <a href="#" className="item active">
+        <a href="#" className="item active" onClick={handleLogout}>
           <BiLogOut className="icon-logout" />
           Logout
         </a>
