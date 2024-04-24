@@ -5,12 +5,7 @@ const ContentHeader = () => {
   return (
     <div className="content--header">
       <h1 className="header--title">Dashboard</h1>
-      <div className="header--activity">
-        <div className="search-box">
-          <input type="text" placeholder="Search something here.." />
-          <BiSearch className="icon" />
-        </div>
-      </div>
+      <div className="header--activity"></div>
     </div>
   );
 };
