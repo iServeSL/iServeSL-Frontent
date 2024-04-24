@@ -114,6 +114,7 @@
   font-size: larger;
 }
 
+/* Style UserGuide content */
 .guide-text--paragraph {
   font-size: 1.5rem;
   font-weight: bold;
@@ -121,3 +122,5 @@
   margin-bottom: 20px;
   color: #333;
 }
+
+/* Style Feedback content */
