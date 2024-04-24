@@ -10,10 +10,6 @@ const ContentHeader = () => {
           <input type="text" placeholder="Search something here.." />
           <BiSearch className="icon" />
         </div>
-
-        <div className="notify">
-          <BiNotification className="icon" />
-        </div>
       </div>
     </div>
   );
