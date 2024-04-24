@@ -26,6 +26,9 @@ const Signup = () => {
     terms: "",
   });
 
+  // Error message for already existing users
+  const [errorMessage, setErrorMessage] = useState("");
+
   const addUser = async () => {
     try {
       // Check if all fields are filled and terms are accepted
@@ -43,7 +46,15 @@ const Signup = () => {
         loginNavigate();
       }
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        // Server responded with 400 status
+        // Extract error message from the response
+        const errorMessage = error.response.data.error;
+        setErrorMessage(errorMessage);
+      } else {
+        // Handle other errors
+        console.error(error);
+      }
     }
   };
 
@@ -162,6 +173,9 @@ const Signup = () => {
                   />
                   {errors.email && (
                     <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
+                  {errorMessage && (
+                    <p className="text-red-500 text-xs mt-1">{errorMessage}</p>
                   )}
                 </div>
               </div>
