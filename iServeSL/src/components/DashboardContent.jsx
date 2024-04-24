@@ -4,7 +4,7 @@ import Card from "./Card";
 import HistoryList from "./HistoryList";
 import "../styles/content.css";
 
-const Content = () => {
+const DashboardContent = () => {
   return (
     <div className="content">
       <ContentHeader />
@@ -14,4 +14,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default DashboardContent;

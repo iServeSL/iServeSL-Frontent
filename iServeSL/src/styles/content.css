@@ -113,3 +113,11 @@
   font-weight: bold;
   font-size: larger;
 }
+
+.guide-text--paragraph {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: #333;
+}

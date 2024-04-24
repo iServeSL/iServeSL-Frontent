@@ -1,19 +1,17 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import DashboardContent from "../components/DashboardContent";
-import Profile from "../components/Profile";
+import UserGuideContent from "../components/UserGuideContent";
 import "../styles/sidebar.css";
 
-const Dashboard = () => {
+const UserGuide = () => {
   return (
     <div className="dashboard">
       <Sidebar />
       <div className="dashboard--content">
-        <DashboardContent />
-        <Profile />
+        <UserGuideContent />
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default UserGuide;
