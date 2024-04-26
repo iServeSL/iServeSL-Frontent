@@ -14,10 +14,8 @@ const FeedbackContent = () => {
   };
 
   const handleSubmit = () => {
-    // Handle feedback submission logic here
     console.log("Subject:", subject);
     console.log("Feedback:", feedback);
-    // You can send the feedback data to your backend or perform any other actions here
   };
 
   return (
