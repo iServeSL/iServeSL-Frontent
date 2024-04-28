@@ -124,3 +124,55 @@
 }
 
 /* Style Feedback content */
+.content-feedback {
+  width: 90%;
+}
+
+.feedback-form {
+  margin-top: 50px;
+  margin-left: 200px;
+  margin-right: 100px;
+}
+
+.feedback-input {
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+}
+
+.paragraph-feedback {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.word-anonymous {
+  color: #ff7300;
+}
+
+/* Style grama niladhari content */
+.grama-title {
+  margin-top: 20px;
+  font-size: 0.9lh;
+}
+
+.grama-form {
+  margin-top: 30px;
+  margin-left: 200px;
+  margin-right: 100px;
+}
+
+/* Style Feedback content */
+.requests-form {
+  margin-top: 50px;
+  margin-left: 200px;
+  margin-right: 100px;
+}

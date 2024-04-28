@@ -102,3 +102,7 @@
 .profession {
   color: #969393;
 }
+
+.font-cursive {
+  font-family: "CursiveFont", cursive;
+}

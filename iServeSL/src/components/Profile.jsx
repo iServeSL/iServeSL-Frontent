@@ -1,14 +1,30 @@
 import React from "react";
 import ProfileHeader from "./ProfileHeader";
 import "../styles/profile.css";
-import userImage from "../assets/user.jpg";
-import { BiEnvelope, BiLock, BiMobile } from "react-icons/bi";
+import {
+  BiEnvelope,
+  BiLock,
+  BiMobile,
+  BiUser,
+  BiPen,
+  BiSolidHeart,
+} from "react-icons/bi";
 
 const details = [
+  {
+    title: "Username",
+    data: "sachinakash_",
+    icon: <BiUser />,
+  },
   {
     title: "Email",
     data: "sachin@wso2.com",
     icon: <BiEnvelope />,
+  },
+  {
+    title: "Profession",
+    data: "Software Engineer",
+    icon: <BiPen />,
   },
   {
     title: "Password",
@@ -28,12 +44,6 @@ const Profile = () => {
       <ProfileHeader />
 
       <div className="user--profile">
-        <div className="user--detail">
-          <img src={userImage} alt="" />
-          <h3 className="username">sachinakash_</h3>
-          <span className="profession">Software Engineer</span>
-        </div>
-
         <div className="user-details">
           {details.map((details) => (
             <div className="user">
@@ -47,6 +57,16 @@ const Profile = () => {
               <div className="action">:</div>
             </div>
           ))}
+          <p class="font-cursive text-sm text-black text-center uppercase tracking-wider mt-7">
+            Made with <span class="text-black text-xl">❤️</span> by{" "}
+            <a
+              href="https://github.com/SachinAkash01"
+              target="_blank"
+              class="text-black hover:text-blue-600 transition-colors duration-300"
+            >
+              SachinAkash01
+            </a>
+          </p>
         </div>
       </div>
     </div>

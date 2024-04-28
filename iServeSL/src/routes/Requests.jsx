@@ -1,17 +1,17 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import GramaNiladhariContent from "../components/GramaNiladhariContent";
+import RequestContent from "../components/RequestContent";
 import "../styles/sidebar.css";
 
-const GramaNiladhari = () => {
+const Requests = () => {
   return (
     <div className="dashboard">
       <Sidebar />
       <div className="dashboard--content">
-        <GramaNiladhariContent />
+        <RequestContent />
       </div>
     </div>
   );
 };
 
-export default GramaNiladhari;
+export default Requests;
