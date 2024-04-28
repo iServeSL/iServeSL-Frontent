@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import GramaNiladhariContent from "../components/GramaNiladhariContent";
 import "../styles/sidebar.css";
 
-const Feedback = () => {
+const GramaNiladhari = () => {
   return (
     <div className="dashboard">
       <Sidebar />
@@ -14,4 +14,4 @@ const Feedback = () => {
   );
 };
 
-export default Feedback;
+export default GramaNiladhari;
