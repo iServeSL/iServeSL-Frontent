@@ -19,9 +19,9 @@ const FeedbackContent = () => {
   };
 
   return (
-    <div className="content">
+    <div className="content-feedback">
       <div className="content--header">
-        <h1 className="header--title">Feedback</h1>
+        <h1 className="header--title">Feedback Form</h1>
       </div>
       <div className="feedback-form">
         <div className="form-group">
@@ -31,9 +31,10 @@ const FeedbackContent = () => {
           <input
             type="text"
             id="subject"
+            name="subject"
             value={subject}
             onChange={handleSubjectChange}
-            className="w-full border rounded-md py-2 px-3 mb-4"
+            className="feedback-input border rounded-md py-2 px-3 mb-4"
             placeholder="Enter subject"
           />
         </div>
@@ -43,19 +44,31 @@ const FeedbackContent = () => {
           </label>
           <textarea
             id="feedback"
+            name="feedback"
             value={feedback}
             onChange={handleFeedbackChange}
-            className="w-full border rounded-md py-2 px-3 mb-4"
+            className="feedback-input border rounded-md py-2 px-3 mb-4"
             rows="5"
             placeholder="Enter your feedback"
           />
         </div>
-        <button
-          className="btnHoverEffect bg-[#ff7300] text-black rounded-md font-medium py-3 px-6"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
+        <div align="right">
+          <button
+            className="btnHoverEffect bg-[#ff7300] text-black rounded-md font-medium py-3 px-6"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+          <br />
+          <br />
+          <br />
+        </div>
+        <p className="paragraph-feedback">
+          Note: These feedbacks are completely{" "}
+          <span className="word-anonymous">anonymous</span> and we don't record
+          any type of personal information regarding the user when submitting a
+          feedback form!
+        </p>
       </div>
     </div>
   );
