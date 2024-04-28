@@ -1,14 +1,7 @@
 import React from "react";
 import ProfileHeader from "./ProfileHeader";
 import "../styles/profile.css";
-import {
-  BiEnvelope,
-  BiLock,
-  BiMobile,
-  BiUser,
-  BiPen,
-  BiSolidHeart,
-} from "react-icons/bi";
+import { BiEnvelope, BiLock, BiMobile, BiUser, BiPen } from "react-icons/bi";
 
 const details = [
   {
@@ -42,7 +35,6 @@ const Profile = () => {
   return (
     <div className="profile">
       <ProfileHeader />
-
       <div className="user--profile">
         <div className="user-details">
           {details.map((details) => (

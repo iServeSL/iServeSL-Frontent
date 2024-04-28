@@ -34,7 +34,7 @@ const FeedbackContent = () => {
             name="subject"
             value={subject}
             onChange={handleSubjectChange}
-            className="feedback-input border rounded-md py-2 px-3 mb-4"
+            className="feedback-input bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
             placeholder="Enter subject"
           />
         </div>
@@ -47,7 +47,7 @@ const FeedbackContent = () => {
             name="feedback"
             value={feedback}
             onChange={handleFeedbackChange}
-            className="feedback-input border rounded-md py-2 px-3 mb-4"
+            className="feedback-input bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
             rows="5"
             placeholder="Enter your feedback"
           />

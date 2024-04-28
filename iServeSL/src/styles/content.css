@@ -176,3 +176,17 @@
   margin-left: 200px;
   margin-right: 100px;
 }
+
+/* Style edit profile content */
+.form-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-section {
+  flex: 1;
+}
+
+.section-title {
+  margin-bottom: 1rem;
+}
