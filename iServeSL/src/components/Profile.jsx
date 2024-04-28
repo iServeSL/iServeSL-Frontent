@@ -57,9 +57,15 @@ const Profile = () => {
               <div className="action">:</div>
             </div>
           ))}
-          <p class="font-mono italic text-sm text-black text-center uppercase tracking-wider mt-7">
+          <p class="font-cursive text-sm text-black text-center uppercase tracking-wider mt-7">
             Made with <span class="text-black text-xl">❤️</span> by{" "}
-            <a href="https://github.com/SachinAkash01">SachinAkash01</a>
+            <a
+              href="https://github.com/SachinAkash01"
+              target="_blank"
+              class="text-black hover:text-blue-600 transition-colors duration-300"
+            >
+              SachinAkash01
+            </a>
           </p>
         </div>
       </div>
