@@ -25,7 +25,7 @@ const FeedbackContent = () => {
       </div>
       <div className="feedback-form">
         <div className="form-group">
-          <label htmlFor="subject" className="block mb-2">
+          <label htmlFor="subject" className="block mb-2 font-bold">
             Subject:
           </label>
           <input
@@ -39,7 +39,7 @@ const FeedbackContent = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="feedback" className="block mb-2">
+          <label htmlFor="feedback" className="block mb-2 font-bold">
             Feedback:
           </label>
           <textarea
