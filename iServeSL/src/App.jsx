@@ -9,6 +9,7 @@ import Feedback from "./routes/Feedback";
 import Police from "./routes/Police";
 import OnlineSupport from "./routes/OnlineSupport";
 import Requests from "./routes/Requests";
+import EditProfile from "./routes/EditProfile";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/dashboard/police" element={<Police />} />
           <Route path="/online-support" element={<OnlineSupport />} />
           <Route path="/requests" element={<Requests />} />
+          <Route path="/dashboard/edit-profile" element={<EditProfile />} />
         </Routes>
       </Router>
     </>

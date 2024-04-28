@@ -104,7 +104,7 @@ const PoliceContent = () => {
             name="nicNumber"
             value={nicNumber}
             onChange={handleNicNumberChange}
-            className="border rounded-md py-1 px-3 mb-4 w-full"
+            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-2"
             placeholder="2001xxxxxxxx"
           />
           {errors.nicNumber && (
@@ -127,7 +127,7 @@ const PoliceContent = () => {
                 name="no"
                 value={addressDetails.no}
                 onChange={handleAddressChange}
-                className="border rounded-md py-1 px-3 w-full"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="287"
               />
               {errors.no && (
@@ -145,7 +145,7 @@ const PoliceContent = () => {
                 name="street"
                 value={addressDetails.street}
                 onChange={handleAddressChange}
-                className="border rounded-md py-1 px-3 w-full"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Daya Road"
               />
             </div>
@@ -162,7 +162,7 @@ const PoliceContent = () => {
                 name="village"
                 value={addressDetails.village}
                 onChange={handleAddressChange}
-                className="border rounded-md py-1 px-3 w-full"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Thumbowila"
               />
               {errors.village && (
@@ -180,7 +180,7 @@ const PoliceContent = () => {
                 name="postalCode"
                 value={addressDetails.postalCode}
                 onChange={handleAddressChange}
-                className="border rounded-md py-1 px-3 w-full"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="10300"
               />
               {errors.postalCode && (
@@ -200,7 +200,7 @@ const PoliceContent = () => {
                 name="city"
                 value={addressDetails.city}
                 onChange={handleAddressChange}
-                className="border rounded-md py-1 px-3 mb-2 w-full"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Piliyandala"
               />
               {errors.city && (
