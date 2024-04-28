@@ -20,10 +20,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/grama-niladhari" element={<GramaNiladhari />} />
+          <Route
+            path="/dashboard/grama-niladhari"
+            element={<GramaNiladhari />}
+          />
           <Route path="/user-guide" element={<UserGuide />} />
           <Route path="/feedback" element={<Feedback />} />
-          <Route path="/police" element={<Police />} />
+          <Route path="/dashboard/police" element={<Police />} />
           <Route path="/online-support" element={<OnlineSupport />} />
           <Route path="/requests" element={<Requests />} />
         </Routes>

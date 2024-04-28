@@ -8,12 +8,12 @@ const services = [
   {
     title: "Grama Niladhari Service",
     icon: <GrUserManager />,
-    route: "/grama-niladhari",
+    route: "/dashboard/grama-niladhari",
   },
   {
     title: "Police Service",
     icon: <MdOutlineLocalPolice />,
-    route: "/police",
+    route: "/dashboard/police",
   },
   {
     title: "Online Support",
