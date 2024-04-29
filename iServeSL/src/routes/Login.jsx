@@ -48,7 +48,7 @@ const Login = () => {
         const { token } = response.data;
 
         // Store the email, and token in cookies
-        Cookies.set("email", email, { expires: 7 });
+        Cookies.set("email", email, { expires: 1 });
         Cookies.set("jwtToken", token, { expires: 1 });
 
         // Navigate to the dashboard after successful login
