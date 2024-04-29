@@ -15,6 +15,10 @@ const PoliceContent = () => {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [uuidString, setUuidString] = useState("");
+  const [availability, setAvailability] = useState("");
+  const [completeResponse, setCompleteResponse] = useState("");
+  const [rejectResponse, setRejectResponse] = useState("");
 
   // State variables for error messages
   const [errors, setErrors] = useState({
@@ -72,9 +76,8 @@ const PoliceContent = () => {
         `http://localhost:3001/api/users/${email}/phone`
       );
       const { phone } = response.data;
-      setPhone(phone); // Update phone state
+      setPhone(phone);
 
-      // Proceed with POST request after setting phone state
       try {
         const postResponse = await axios.post(
           "http://localhost:4040/newRequestRecord",
@@ -85,14 +88,55 @@ const PoliceContent = () => {
             phone: phone,
           }
         );
-        const { uuidString } = postResponse.data;
+        const uuidString = postResponse.data;
         setUuidString(uuidString);
+
+        try {
+          const availableResponse = await axios.get(
+            `http://localhost:5050/checkAvailability/${nicNumber}`
+          );
+          const availability = availableResponse.data;
+          setAvailability(availability);
+
+          if (availability) {
+            try {
+              const updateStatusCompleted = await axios.put(
+                `http://localhost:4040/updateRequest/${uuidString}/completed`
+              );
+              const completeResponse = updateStatusCompleted.data;
+              setCompleteResponse(completeResponse);
+            } catch (error) {
+              console.error("Status cannot be updated:", error);
+            }
+          } else {
+            try {
+              const updateStatusRejected = await axios.put(
+                `http://localhost:4040/updateRequest/${uuidString}/rejected`
+              );
+              const rejectResponse = updateStatusRejected.data;
+              setRejectResponse(rejectResponse);
+            } catch (error) {
+              console.error("Status cannot be updated:", error);
+            }
+          }
+        } catch (error) {
+          console.error("Invalid NIC;", error);
+        }
       } catch (error) {
         console.error("Error sending POST request:", error);
       }
     } catch (error) {
       console.error("Error fetching user's phone number:", error);
     }
+
+    // Display success alert
+    alert(
+      `Your police character certificate request has been sent successfully! Use ${uuidString} to track your request`
+    );
+
+    // Clear input fields
+    setNicNumber("");
+    setFullName("");
   };
 
   return (
