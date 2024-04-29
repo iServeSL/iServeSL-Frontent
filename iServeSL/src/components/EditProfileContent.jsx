@@ -1,23 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 import "../styles/content.css";
 
 const EditProfileContent = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [initialEmail, setInitialEmail] = useState(""); // To track initial email
+  const [initialContact, setInitialContact] = useState("");
+  const [initialProfession, setInitialProfession] = useState("");
   const [contact, setContact] = useState("");
   const [profession, setProfession] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isDataChanged, setIsDataChanged] = useState(false); // Flag to track if data changed
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const email = Cookies.get("email");
+        if (email) {
+          setEmail(email);
+          setInitialEmail(email);
+          const response = await axios.get(
+            `http://localhost:3001/api/users/${email}`
+          );
+          const userData = response.data;
+          setProfession(userData.profession);
+          setInitialProfession(userData.profession);
+          setContact(userData.contact);
+          setInitialContact(userData.contact);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const dashboardNavigate = () => {
     navigate("/dashboard");
   };
 
-  const saveDetails = () => {
+  const saveDetails = async () => {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -26,18 +56,80 @@ const EditProfileContent = () => {
     } else {
       setEmailError("");
     }
-    // Logic to save personal details
+
+    // Check if any data is changed
+    if (
+      email !== initialEmail ||
+      contact !== initialContact ||
+      profession !== initialProfession
+    ) {
+      // If any data is changed, send it to backend
+      try {
+        await axios.put(`http://localhost:3001/api/users/${initialEmail}`, {
+          email,
+          contact,
+          profession,
+        });
+        setIsDataChanged(false); // Reset data changed flag
+        alert("User details updated successfully!");
+      } catch (error) {
+        console.error("Error updating user details:", error);
+        alert("Failed to update user details.");
+      }
+    } else {
+      alert("No changes detected.");
+    }
   };
 
-  const changePassword = () => {
-    // Password matching validation
-    if (newPassword !== confirmNewPassword) {
-      setPasswordError("New password and confirm password do not match.");
-      return;
-    } else {
-      setPasswordError("");
+  const changePassword = async () => {
+    try {
+      // Validate old password
+      const response = await axios.post("http://localhost:3001/api/login", {
+        email,
+        password: oldPassword,
+      });
+      const { token } = response.data;
+
+      // Check if new password and confirm new password are not empty
+      if (!newPassword || !confirmNewPassword) {
+        setPasswordError(
+          "Please enter both new password and confirm password."
+        );
+        return;
+      } else {
+        setPasswordError("");
+      }
+
+      // Compare new passwords
+      if (newPassword !== confirmNewPassword) {
+        setPasswordError("New password and confirm password do not match.");
+        return;
+      } else {
+        setPasswordError("");
+      }
+
+      // Request to change password
+      await axios.put(
+        `http://localhost:3001/api/user/${email}/password`,
+        {
+          newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Send JWT token for authentication
+          },
+        }
+      );
+      alert("Password changed successfully!");
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmNewPassword("");
+    } catch (error) {
+      console.error("Error changing password:", error);
+      alert(
+        "Failed to change password. Please check whether your old password is correct!"
+      );
     }
-    // Logic to change password
   };
 
   return (
