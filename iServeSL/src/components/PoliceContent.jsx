@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 import "../styles/content.css";
 
 const PoliceContent = () => {
@@ -11,12 +13,22 @@ const PoliceContent = () => {
 
   const [nicNumber, setNicNumber] = useState("");
   const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
   // State variables for error messages
   const [errors, setErrors] = useState({
     nicNumber: "",
     fullName: "",
   });
+
+  // Effect to fetch email from cookies when component mounts
+  useEffect(() => {
+    const email = Cookies.get("email");
+    if (email) {
+      setEmail(email);
+    }
+  }, []); // Empty dependency array to run this effect only once when component mounts
 
   const handleNicNumberChange = (e) => {
     setNicNumber(e.target.value);
@@ -36,7 +48,7 @@ const PoliceContent = () => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Check if NIC number is entered
     if (!nicNumber.trim()) {
       setErrors((prevErrors) => ({
@@ -55,9 +67,32 @@ const PoliceContent = () => {
       return;
     }
 
-    // If all checks pass, proceed with the submission
-    console.log("NIC Number:", nicNumber);
-    console.log("Full Name:", fullName);
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/api/users/${email}/phone`
+      );
+      const { phone } = response.data;
+      setPhone(phone); // Update phone state
+
+      // Proceed with POST request after setting phone state
+      try {
+        const postResponse = await axios.post(
+          "http://localhost:4040/newRequestRecord",
+          {
+            NIC: nicNumber,
+            email: email,
+            name: fullName,
+            phone: phone,
+          }
+        );
+        const { uuidString } = postResponse.data;
+        setUuidString(uuidString);
+      } catch (error) {
+        console.error("Error sending POST request:", error);
+      }
+    } catch (error) {
+      console.error("Error fetching user's phone number:", error);
+    }
   };
 
   return (
