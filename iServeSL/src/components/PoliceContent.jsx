@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 import "../styles/content.css";
 
 const PoliceContent = () => {
@@ -10,22 +12,27 @@ const PoliceContent = () => {
   };
 
   const [nicNumber, setNicNumber] = useState("");
-  const [addressDetails, setAddressDetails] = useState({
-    no: "",
-    street: "",
-    village: "",
-    postalCode: "",
-    city: "",
-  });
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [uuidString, setUuidString] = useState("");
+  const [availability, setAvailability] = useState("");
+  const [completeResponse, setCompleteResponse] = useState("");
+  const [rejectResponse, setRejectResponse] = useState("");
 
   // State variables for error messages
   const [errors, setErrors] = useState({
     nicNumber: "",
-    no: "",
-    village: "",
-    postalCode: "",
-    city: "",
+    fullName: "",
   });
+
+  // Effect to fetch email from cookies when component mounts
+  useEffect(() => {
+    const email = Cookies.get("email");
+    if (email) {
+      setEmail(email);
+    }
+  }, []); // Empty dependency array to run this effect only once when component mounts
 
   const handleNicNumberChange = (e) => {
     setNicNumber(e.target.value);
@@ -36,20 +43,16 @@ const PoliceContent = () => {
     }));
   };
 
-  const handleAddressChange = (e) => {
-    const { name, value } = e.target;
-    setAddressDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
-    // Clear the error message for the changed input field
+  const handleFullNameChange = (e) => {
+    setFullName(e.target.value);
+    // Clear the Full Name error message
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: "",
+      fullName: "",
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Check if NIC number is entered
     if (!nicNumber.trim()) {
       setErrors((prevErrors) => ({
@@ -59,23 +62,81 @@ const PoliceContent = () => {
       return;
     }
 
-    // Check if any of the address fields except for street are empty
-    const addressFields = Object.keys(addressDetails);
-    for (const field of addressFields) {
-      if (field !== "street" && !addressDetails[field].trim()) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [field]: `${
-            field.charAt(0).toUpperCase() + field.slice(1)
-          } is required`,
-        }));
-        return;
-      }
+    // Check if Full Name is entered
+    if (!fullName.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        fullName: "Full Name is required",
+      }));
+      return;
     }
 
-    // If all checks pass, proceed with the submission
-    console.log("NIC Number:", nicNumber);
-    console.log("Address Details:", addressDetails);
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/api/users/${email}/phone`
+      );
+      const { phone } = response.data;
+      setPhone(phone);
+
+      try {
+        const postResponse = await axios.post(
+          "http://localhost:4040/newRequestRecord",
+          {
+            NIC: nicNumber,
+            email: email,
+            name: fullName,
+            phone: phone,
+          }
+        );
+        const uuidString = postResponse.data;
+        setUuidString(uuidString);
+
+        try {
+          const availableResponse = await axios.get(
+            `http://localhost:5050/checkAvailability/${nicNumber}`
+          );
+          const availability = availableResponse.data;
+          setAvailability(availability);
+
+          if (availability) {
+            try {
+              const updateStatusCompleted = await axios.put(
+                `http://localhost:4040/updateRequest/${uuidString}/completed`
+              );
+              const completeResponse = updateStatusCompleted.data;
+              setCompleteResponse(completeResponse);
+            } catch (error) {
+              console.error("Status cannot be updated:", error);
+            }
+          } else {
+            try {
+              const updateStatusRejected = await axios.put(
+                `http://localhost:4040/updateRequest/${uuidString}/rejected`
+              );
+              const rejectResponse = updateStatusRejected.data;
+              setRejectResponse(rejectResponse);
+            } catch (error) {
+              console.error("Status cannot be updated:", error);
+            }
+          }
+        } catch (error) {
+          console.error("Invalid NIC;", error);
+        }
+      } catch (error) {
+        console.error("Error sending POST request:", error);
+      }
+    } catch (error) {
+      console.error("Error fetching user's phone number:", error);
+    }
+
+    // Display success alert
+    alert(
+      `Your police character certificate request has been sent successfully! Use ${uuidString} to track your request`
+    );
+
+    // Clear input fields
+    setNicNumber("");
+    setFullName("");
   };
 
   return (
@@ -89,7 +150,7 @@ const PoliceContent = () => {
         </h1>
       </div>
       <div>
-        <p className="grama-title">
+        <p className="grama-title mb-20">
           Request Police Character Certificate Below..
         </p>
       </div>
@@ -112,99 +173,23 @@ const PoliceContent = () => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="no" className="block mb-2 font-bold">
-            Address Details:
+          <label htmlFor="fullName" className="block mb-2 font-bold">
+            Full Name:
           </label>
-          <div className="flex mb-2">
-            <div className="w-full mr-2">
-              {" "}
-              <label htmlFor="no" className="block mb-2">
-                No:
-              </label>
-              <input
-                type="text"
-                id="no"
-                name="no"
-                value={addressDetails.no}
-                onChange={handleAddressChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="287"
-              />
-              {errors.no && (
-                <p className="text-red-500 text-xs mt-1">{errors.no}</p>
-              )}
-            </div>
-            <div className="w-full ml-2">
-              {" "}
-              <label htmlFor="street" className="block mb-2">
-                Street:
-              </label>
-              <input
-                type="text"
-                id="street"
-                name="street"
-                value={addressDetails.street}
-                onChange={handleAddressChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Daya Road"
-              />
-            </div>
-          </div>
-          <div className="flex mb-2">
-            <div className="w-full mr-2">
-              {" "}
-              <label htmlFor="village" className="block mb-2">
-                Village:
-              </label>
-              <input
-                type="text"
-                id="village"
-                name="village"
-                value={addressDetails.village}
-                onChange={handleAddressChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Thumbowila"
-              />
-              {errors.village && (
-                <p className="text-red-500 text-xs mt-1">{errors.village}</p>
-              )}
-            </div>
-            <div className="w-full ml-2">
-              {" "}
-              <label htmlFor="postalCode" className="block mb-2">
-                Postal Code:
-              </label>
-              <input
-                type="text"
-                id="postalCode"
-                name="postalCode"
-                value={addressDetails.postalCode}
-                onChange={handleAddressChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="10300"
-              />
-              {errors.postalCode && (
-                <p className="text-red-500 text-xs mt-1">{errors.postalCode}</p>
-              )}
-            </div>
-          </div>
           <div className="flex mb-2">
             <div className="w-full">
               {" "}
-              <label htmlFor="city" className="block mb-2">
-                City:
-              </label>
               <input
                 type="text"
-                id="city"
-                name="city"
-                value={addressDetails.city}
-                onChange={handleAddressChange}
+                id="fullName"
+                name="fullName"
+                value={fullName}
+                onChange={handleFullNameChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Piliyandala"
+                placeholder="Jane Doe"
               />
-              {errors.city && (
-                <p className="text-red-500 text-xs mt-1">{errors.city}</p>
+              {errors.fullName && (
+                <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
               )}
             </div>
           </div>
