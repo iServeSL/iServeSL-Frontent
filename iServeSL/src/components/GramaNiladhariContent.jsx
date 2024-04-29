@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 import "../styles/content.css";
 
 const GramaNiladhariContent = () => {
@@ -17,6 +19,13 @@ const GramaNiladhariContent = () => {
     postalCode: "",
     city: "",
   });
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [uuidString, setUuidString] = useState("");
+  const [identityCheck, setIdentityCheck] = useState("");
+  const [addressCheck, setAddressCheck] = useState("");
+  const [completeResponse, setCompleteResponse] = useState("");
+  const [rejectResponse, setRejectResponse] = useState("");
 
   // State variables for error messages
   const [errors, setErrors] = useState({
@@ -26,6 +35,14 @@ const GramaNiladhariContent = () => {
     postalCode: "",
     city: "",
   });
+
+  // Effect to fetch email from cookies when component mounts
+  useEffect(() => {
+    const email = Cookies.get("email");
+    if (email) {
+      setEmail(email);
+    }
+  }, []); // Empty dependency array to run this effect only once when component mounts
 
   const handleNicNumberChange = (e) => {
     setNicNumber(e.target.value);
@@ -49,7 +66,7 @@ const GramaNiladhariContent = () => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Check if NIC number is entered
     if (!nicNumber.trim()) {
       setErrors((prevErrors) => ({
@@ -73,9 +90,96 @@ const GramaNiladhariContent = () => {
       }
     }
 
-    // If all checks pass, proceed with the submission
-    console.log("NIC Number:", nicNumber);
-    console.log("Address Details:", addressDetails);
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/api/users/${email}/phone`
+      );
+      const { phone } = response.data;
+      setPhone(phone);
+
+      try {
+        const postResponse = await axios.post(
+          "http://localhost:8080/newRequestRecord",
+          {
+            NIC: nicNumber,
+            email: email,
+            no: addressDetails.no,
+            street: addressDetails.street,
+            village: addressDetails.village,
+            city: addressDetails.city,
+            postalcode: addressDetails.postalCode,
+            phone: phone,
+          }
+        );
+        const uuidString = postResponse.data;
+        setUuidString(uuidString);
+
+        try {
+          const identityCheckResponse = await axios.get(
+            `http://localhost:7070/checkNIC/${nicNumber}`
+          );
+          const identityCheck = identityCheckResponse.data;
+          setIdentityCheck(identityCheck);
+
+          const addressCheckResponse = await axios.get(
+            "http://localhost:9090/checkAddress",
+            {
+              params: {
+                NIC: nicNumber,
+                no: addressDetails.no,
+                village: addressDetails.village,
+                city: addressDetails.city,
+                postalcode: addressDetails.postalCode,
+                street: addressDetails.street,
+              },
+            }
+          );
+          const addressCheck = addressCheckResponse.data;
+          setAddressCheck(addressCheck);
+
+          if (identityCheck && addressCheck) {
+            try {
+              const updateStatusCompleted = await axios.put(
+                `http://localhost:8080/updateRequest/${uuidString}/completed`
+              );
+              const completeResponse = updateStatusCompleted.data;
+              setCompleteResponse(completeResponse);
+            } catch (error) {
+              console.error("Status cannot be updated:", error);
+            }
+          } else {
+            try {
+              const updateStatusRejected = await axios.put(
+                `http://localhost:8080/updateRequest/${uuidString}/rejected`
+              );
+              const rejectResponse = updateStatusRejected.data;
+              setRejectResponse(rejectResponse);
+            } catch (error) {
+              console.error("Status cannot be updated:", error);
+            }
+          }
+        } catch (error) {
+          console.error("Invalid NIC:", error);
+        }
+      } catch (error) {
+        console.error("Error sending POST request:", error);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+
+    // Display success alert
+    alert(
+      `Your Grama Niladhari certificate request has been sent successfully! Use ${uuidString} to track your request`
+    );
+
+    // Clear input fields
+    setNicNumber("");
+    addressDetails.no = "";
+    addressDetails.street = "";
+    addressDetails.village = "";
+    addressDetails.city = "";
+    addressDetails.postalCode = "";
   };
 
   return (
