@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Logo from "../assets/iServeSL.png";
 import "../styles/content.css";
 
 const FeedbackContent = () => {
@@ -7,6 +8,8 @@ const FeedbackContent = () => {
   const [feedback, setFeedback] = useState("");
   const [subjectError, setSubjectError] = useState("");
   const [feedbackError, setFeedbackError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   const handleSubjectChange = (e) => {
     setSubject(e.target.value);
@@ -20,6 +23,10 @@ const FeedbackContent = () => {
     if (e.target.value.trim() !== "") {
       setFeedbackError("");
     }
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   const handleSubmit = async () => {
@@ -45,9 +52,13 @@ const FeedbackContent = () => {
           }
         );
         if (response.status === 200) {
-          alert("Thanks for sharing your feedback with us.");
+          setModalContent("Thanks for sharing your feedback with us...");
+          setModalOpen(true);
         } else {
-          alert("Feedback submission unsuccessful! Please try again.");
+          setModalContent(
+            "Feedback submission unsuccessful! Please try again!"
+          );
+          setModalOpen(true);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -58,7 +69,7 @@ const FeedbackContent = () => {
   };
 
   return (
-    <div className="content-feedback">
+    <div className={`content-feedback ${modalOpen ? "modal-open" : ""}`}>
       <div className="content--header">
         <h1 className="header--title">Feedback Form</h1>
       </div>
@@ -115,6 +126,39 @@ const FeedbackContent = () => {
           feedback form!
         </p>
       </div>
+
+      {modalOpen && (
+        <div className="modal-overlay">
+          <dialog
+            id="my_modal_5"
+            className="modal modal-center"
+            open
+            onClick={handleCloseModal}
+          >
+            <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-left">
+                <img
+                  src={Logo}
+                  className="logo-icon w-[80px] mx-0 my-2 cursor-pointer"
+                  alt="Logo"
+                />
+                <h3 className="font-cursive font-bold text-lg ml-1 mt-5">
+                  iServeSL - Alert
+                </h3>
+              </div>
+              <p className="py-4 text-left ml-10">{modalContent}</p>
+              <div className="modal-action text-right">
+                <button
+                  className="btn btnHoverEffect bg-[#ff7300] text-black rounded-md font-medium py-2 px-7 mr-4"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </dialog>
+        </div>
+      )}
     </div>
   );
 };
