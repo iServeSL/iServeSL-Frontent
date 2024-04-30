@@ -32,24 +32,28 @@ const Footer = () => {
           <div className="flex justify-between md:w-[75%] my-6">
             <a
               href="https://www.facebook.com/sachinakash.katuwawala"
+              target="_blank"
               className="hover:text-blue-500 transition-colors duration-300"
             >
               <FaLinkedinIn size={30} />
             </a>
             <a
               href="https://www.instagram.com/sachinakash_/"
+              target="_blank"
               className="hover:text-pink-500 transition-colors duration-300"
             >
               <FaInstagram size={30} />
             </a>
             <a
               href="https://twitter.com/SachinAkash_"
+              target="_blank"
               className="hover:text-blue-500 transition-colors duration-300"
             >
               <FaTwitter size={30} />
             </a>
             <a
               href="https://github.com/SachinAkash01"
+              target="_blank"
               className="hover:text-gray-700 transition-colors duration-300"
             >
               <FaGithub size={30} />

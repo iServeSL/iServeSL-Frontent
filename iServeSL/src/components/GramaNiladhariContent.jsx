@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/iServeSL.png";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../styles/content.css";
@@ -26,6 +27,8 @@ const GramaNiladhariContent = () => {
   const [addressCheck, setAddressCheck] = useState("");
   const [completeResponse, setCompleteResponse] = useState("");
   const [rejectResponse, setRejectResponse] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   // State variables for error messages
   const [errors, setErrors] = useState({
@@ -64,6 +67,10 @@ const GramaNiladhariContent = () => {
       ...prevErrors,
       [name]: "",
     }));
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   const handleSubmit = async () => {
@@ -169,9 +176,17 @@ const GramaNiladhariContent = () => {
     }
 
     // Display success alert
-    alert(
-      `Your Grama Niladhari certificate request has been sent successfully! Use ${uuidString} to track your request`
-    );
+    if (uuidString) {
+      setModalContent(
+        `Your Grama Niladhari Certificate request has been sent successfully! Use ${uuidString} to track your request.`
+      );
+      setModalOpen(true);
+    } else {
+      setModalContent(
+        `Your request for Grama Niladhari Certificate was unsuccessful! Please try again!`
+      );
+      setModalOpen(true);
+    }
 
     // Clear input fields
     setNicNumber("");
@@ -325,6 +340,38 @@ const GramaNiladhariContent = () => {
           <br />
         </div>
       </div>
+      {modalOpen && (
+        <div className="modal-overlay">
+          <dialog
+            id="my_modal_5"
+            className="modal modal-center"
+            open
+            onClick={handleCloseModal}
+          >
+            <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-left">
+                <img
+                  src={Logo}
+                  className="logo-icon w-[80px] mx-0 my-2 cursor-pointer"
+                  alt="Logo"
+                />
+                <h3 className="font-cursive font-bold text-lg ml-1 mt-5">
+                  iServeSL - Alert
+                </h3>
+              </div>
+              <p className="py-4 text-left ml-8">{modalContent}</p>
+              <div className="modal-action text-right">
+                <button
+                  className="btn btnHoverEffect bg-[#ff7300] text-black rounded-md font-medium py-2 px-7 mr-4"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </dialog>
+        </div>
+      )}
     </div>
   );
 };

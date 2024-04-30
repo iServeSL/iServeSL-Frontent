@@ -190,3 +190,33 @@
 .section-title {
   margin-bottom: 1rem;
 }
+
+/* Style for modal view */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+}
+
+.modal-box {
+  max-width: 600px;
+  text-align: center;
+}
+
+.modal-action {
+  margin-top: 20px;
+}

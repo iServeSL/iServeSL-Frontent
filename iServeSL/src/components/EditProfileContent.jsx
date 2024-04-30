@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/iServeSL.png";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../styles/content.css";
@@ -18,6 +19,8 @@ const EditProfileContent = () => {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isDataChanged, setIsDataChanged] = useState(false); // Flag to track if data changed
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -47,6 +50,10 @@ const EditProfileContent = () => {
     navigate("/dashboard");
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   const saveDetails = async () => {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -71,13 +78,16 @@ const EditProfileContent = () => {
           profession,
         });
         setIsDataChanged(false); // Reset data changed flag
-        alert("User details updated successfully!");
+        setModalContent("User details updated successfully!");
+        setModalOpen(true);
       } catch (error) {
         console.error("Error updating user details:", error);
-        alert("Failed to update user details.");
+        setModalContent("Failed to update user details!");
+        setModalOpen(true);
       }
     } else {
-      alert("No changes detected.");
+      setModalContent("No changes detected!");
+      setModalOpen(true);
     }
   };
 
@@ -120,15 +130,17 @@ const EditProfileContent = () => {
           },
         }
       );
-      alert("Password changed successfully!");
+      setModalContent("Password changed successfully!");
+      setModalOpen(true);
       setOldPassword("");
       setNewPassword("");
       setConfirmNewPassword("");
     } catch (error) {
       console.error("Error changing password:", error);
-      alert(
+      setModalContent(
         "Failed to change password. Please check whether your old password is correct!"
       );
+      setModalOpen(true);
     }
   };
 
@@ -273,6 +285,38 @@ const EditProfileContent = () => {
           </div>
         </div>
       </div>
+      {modalOpen && (
+        <div className="modal-overlay">
+          <dialog
+            id="my_modal_5"
+            className="modal modal-center"
+            open
+            onClick={handleCloseModal}
+          >
+            <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-left">
+                <img
+                  src={Logo}
+                  className="logo-icon w-[80px] mx-0 my-2 cursor-pointer"
+                  alt="Logo"
+                />
+                <h3 className="font-cursive font-bold text-lg ml-1 mt-5">
+                  iServeSL - Alert
+                </h3>
+              </div>
+              <p className="py-4 text-left ml-8">{modalContent}</p>
+              <div className="modal-action text-right">
+                <button
+                  className="btn btnHoverEffect bg-[#ff7300] text-black rounded-md font-medium py-2 px-7 mr-4"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </dialog>
+        </div>
+      )}
     </div>
   );
 };
