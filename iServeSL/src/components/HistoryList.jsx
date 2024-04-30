@@ -1,25 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import "../styles/historyList.css";
 
-const history = [
-  {
-    name: "sachinakash_",
-    service: "Police Service",
-    date: "06/03/2023",
-  },
-  {
-    name: "sachinakash_",
-    service: "Police Service",
-    date: "05/03/2023",
-  },
-  {
-    name: "sachinakash_",
-    service: "Grama Niladhari Service",
-    date: "28/02/2023",
-  },
-];
-
 const HistoryList = () => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userEmail = Cookies.get("email");
+        if (userEmail) {
+          setEmail(userEmail);
+          const response = await axios.get(
+            `http://localhost:3001/api/users/${userEmail}`
+          );
+          const userData = response.data;
+          setUsername(userData.username);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const history = [
+    {
+      name: username,
+      service: "Police Service",
+    },
+    {
+      name: username,
+      service: "Police Service",
+    },
+    {
+      name: username,
+      service: "Grama Niladhari Service",
+    },
+  ];
+
   return (
     <div className="history--list">
       <div className="list--header">
@@ -32,7 +54,6 @@ const HistoryList = () => {
               <h2 className="font-bold ml-2">{history.name}</h2>
             </div>
             <span className="w-[500px] text-center">{history.service}</span>
-            <span className="text-right">{history.date}</span>
             <span className="history--todo">:</span>
           </div>
         ))}
