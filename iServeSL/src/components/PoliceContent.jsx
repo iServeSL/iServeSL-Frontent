@@ -98,6 +98,19 @@ const PoliceContent = () => {
         const uuidString = postResponse.data;
         setUuidString(uuidString);
 
+        // Display success alert
+        if (uuidString) {
+          setModalContent(
+            `Your Police Character Certificate request has been sent successfully! Use ${uuidString} to track your request.`
+          );
+          setModalOpen(true);
+        } else {
+          setModalContent(
+            `Your request for Police Charater Certificate was unsuccessful! Please try again!`
+          );
+          setModalOpen(true);
+        }
+
         try {
           const availableResponse = await axios.get(
             `http://localhost:5050/checkAvailability/${nicNumber}`
@@ -128,21 +141,25 @@ const PoliceContent = () => {
           }
         } catch (error) {
           console.error("Invalid NIC;", error);
+          try {
+            const updateStatusRejected = await axios.put(
+              `http://localhost:4040/updateRequest/${uuidString}/rejected`
+            );
+            const rejectResponse = updateStatusRejected.data;
+            setRejectResponse(rejectResponse);
+          } catch (error) {
+            console.error("Status cannot be updated:", error);
+          }
         }
       } catch (error) {
         console.error("Error sending POST request:", error);
+        setModalContent(
+          `Your request for Police Charater Certificate was unsuccessful! Please try again!`
+        );
+        setModalOpen(true);
       }
     } catch (error) {
       console.error("Error fetching user's phone number:", error);
-    }
-
-    // Display success alert
-    if (uuidString) {
-      setModalContent(
-        `Your Police Character Certificate request has been sent successfully! Use ${uuidString} to track your request.`
-      );
-      setModalOpen(true);
-    } else {
       setModalContent(
         `Your request for Police Charater Certificate was unsuccessful! Please try again!`
       );

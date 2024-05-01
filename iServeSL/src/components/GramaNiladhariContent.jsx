@@ -121,6 +121,19 @@ const GramaNiladhariContent = () => {
         const uuidString = postResponse.data;
         setUuidString(uuidString);
 
+        // Display success alert
+        if (uuidString) {
+          setModalContent(
+            `Your Grama Niladhari Certificate request has been sent successfully! Use ${uuidString} to track your request.`
+          );
+          setModalOpen(true);
+        } else {
+          setModalContent(
+            `Your request for Grama Niladhari Certificate was unsuccessful! Please try again!`
+          );
+          setModalOpen(true);
+        }
+
         try {
           const identityCheckResponse = await axios.get(
             `http://localhost:7070/checkNIC/${nicNumber}`
@@ -167,25 +180,21 @@ const GramaNiladhariContent = () => {
           }
         } catch (error) {
           console.error("Invalid NIC:", error);
+          try {
+            const updateStatusRejected = await axios.put(
+              `http://localhost:8080/updateRequest/${uuidString}/rejected`
+            );
+            const rejectResponse = updateStatusRejected.data;
+            setRejectResponse(rejectResponse);
+          } catch (error) {
+            console.error("Status cannot be updated:", error);
+          }
         }
       } catch (error) {
         console.error("Error sending POST request:", error);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
-    }
-
-    // Display success alert
-    if (uuidString) {
-      setModalContent(
-        `Your Grama Niladhari Certificate request has been sent successfully! Use ${uuidString} to track your request.`
-      );
-      setModalOpen(true);
-    } else {
-      setModalContent(
-        `Your request for Grama Niladhari Certificate was unsuccessful! Please try again!`
-      );
-      setModalOpen(true);
     }
 
     // Clear input fields
