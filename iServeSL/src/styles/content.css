@@ -220,3 +220,12 @@
 .modal-action {
   margin-top: 20px;
 }
+
+/* Style for request page */
+.status-button {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: default;
+  border-radius: 0.375rem;
+}
