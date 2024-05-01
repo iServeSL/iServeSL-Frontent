@@ -14,10 +14,15 @@ const UserGuideContent = () => {
           Go through the complete user guide on how to use iServeSL e-governance
           web application..
         </p>
-        <button className="btnHoverEffect bg-[#ff7300] text-black w-[200px] rounded-md font-medium my-6 py-3 flex justify-center">
-          User Guide
-          <TfiArrowCircleRight TopRight size={20} className="ml-2 mt-1" />
-        </button>
+        <a
+          href="https://github.com/iServeSL/iServeSL-Docs/blob/e67a99f9cf8675f099cd93e441210af70c93343d/iServeSL%20-%20User%20Guide.md"
+          target="_blank"
+        >
+          <button className="btnHoverEffect bg-[#ff7300] text-black w-[200px] rounded-md font-medium my-6 py-3 flex justify-center">
+            User Guide
+            <TfiArrowCircleRight TopRight size={20} className="ml-2 mt-1" />
+          </button>
+        </a>
         <img className="w-[500px] mx-[600px]" src={eGovernance} alt="/" />
       </div>
     </div>

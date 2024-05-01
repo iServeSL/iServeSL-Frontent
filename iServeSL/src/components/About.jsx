@@ -1,8 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import eGovernance from "../assets/eGovernance.png";
 import { TfiArrowCircleRight } from "react-icons/tfi";
 
 const About = () => {
+  const navigate = useNavigate();
+
+  const userGuidePageNavigate = () => {
+    navigate(
+      "https://github.com/iServeSL/iServeSL-Docs/blob/main/iServeSL%20-%20User%20Guide.md"
+    );
+  };
+
   return (
     <div className="w-full bg-white py-16 px-4">
       <div className="max-w-[1240px] mx-auto grid md:grid-cols-2">
@@ -24,10 +33,15 @@ const About = () => {
             government-citizen interaction with iServeSL, where accessing
             services is effortless, efficient, and intelligent.
           </p>
-          <button className="btnHoverEffect bg-[#ff7300] text-black w-[200px] rounded-md font-medium my-6 py-3 flex justify-center">
-            User Guide
-            <TfiArrowCircleRight TopRight size={20} className="ml-2 mt-1" />
-          </button>
+          <a
+            href="https://github.com/iServeSL/iServeSL-Docs/blob/e67a99f9cf8675f099cd93e441210af70c93343d/iServeSL%20-%20User%20Guide.md"
+            target="_blank"
+          >
+            <button className="btnHoverEffect bg-[#ff7300] text-black w-[200px] rounded-md font-medium my-6 py-3 flex justify-center">
+              User Guide
+              <TfiArrowCircleRight TopRight size={20} className="ml-2 mt-1" />
+            </button>
+          </a>
         </div>
       </div>
     </div>
