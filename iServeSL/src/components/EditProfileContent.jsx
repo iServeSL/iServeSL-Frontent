@@ -9,6 +9,7 @@ const EditProfileContent = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [initialEmail, setInitialEmail] = useState(""); // To track initial email
+  const [username, setUsername] = useState("");
   const [initialContact, setInitialContact] = useState("");
   const [initialProfession, setInitialProfession] = useState("");
   const [contact, setContact] = useState("");
@@ -33,6 +34,7 @@ const EditProfileContent = () => {
             `http://localhost:3001/api/users/${email}`
           );
           const userData = response.data;
+          setUsername(userData.username);
           setProfession(userData.profession);
           setInitialProfession(userData.profession);
           setContact(userData.contact);
@@ -151,7 +153,7 @@ const EditProfileContent = () => {
           <span onClick={dashboardNavigate} style={{ cursor: "pointer" }}>
             Dashboard
           </span>{" "}
-          {">>"} Edit Profile (sachinakash_)
+          {">>"} Edit Profile ({username})
         </h1>
       </div>
       <div className="grama-form mt-20">
