@@ -1,6 +1,6 @@
 import React from "react";
 import eGovernance from "../assets/eGovernance.png";
-import { MdDownload } from "react-icons/md";
+import { TfiArrowCircleRight } from "react-icons/tfi";
 
 const About = () => {
   return (
@@ -26,7 +26,7 @@ const About = () => {
           </p>
           <button className="btnHoverEffect bg-[#ff7300] text-black w-[200px] rounded-md font-medium my-6 py-3 flex justify-center">
             User Guide
-            <MdDownload size={30} className="ml-2" />
+            <TfiArrowCircleRight TopRight size={20} className="ml-2 mt-1" />
           </button>
         </div>
       </div>
