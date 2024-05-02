@@ -38,11 +38,10 @@ const Sidebar = () => {
   };
 
   const handleLogout = () => {
-    // Performs logout actions by clearing cookies
     Cookies.remove("jwtToken");
     Cookies.remove("email");
+    sessionStorage.removeItem("chatMessages");
 
-    // Navigate to the login page after logout
     loginNavigate();
   };
 
