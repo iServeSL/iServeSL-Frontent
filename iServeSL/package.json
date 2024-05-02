@@ -10,13 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@minchat/react-chat-ui": "^0.16.2",
+    "@mui/material": "^5.15.16",
     "axios": "^1.6.8",
     "js-cookie": "^3.0.5",
     "jspdf": "^2.5.1",
     "react": "^18.2.0",
+    "react-chat-elements": "^12.0.14",
+    "react-chat-ui": "^0.4.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",
     "react-icons": "^5.0.1",
+    "react-native-gifted-chat": "^2.4.0",
     "react-router-dom": "^6.22.3",
     "react-typed": "^2.0.12"
   },
