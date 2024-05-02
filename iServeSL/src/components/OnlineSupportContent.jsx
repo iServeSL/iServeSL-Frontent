@@ -11,13 +11,15 @@ const Chatbot = () => {
     navigate("/dashboard");
   };
 
-  const [loading, setLoading] = useState(true);
-  const [messages, setMessages] = useState([
-    new Message({
-      id: 1,
-      message: "Hello, Welcome to iServeSL! How may I help you today?",
-    }), // Initial message
-  ]);
+  // Load messages from session storage if available, otherwise use initial message
+  const [messages, setMessages] = useState(
+    JSON.parse(sessionStorage.getItem("chatMessages")) || [
+      new Message({
+        id: 1,
+        message: "Hello, Welcome to iServeSL! How may I help you today?",
+      }),
+    ]
+  );
   const [input, setInput] = useState("");
   const chatFeedRef = useRef(null);
 
@@ -25,11 +27,43 @@ const Chatbot = () => {
     setInput(e.target.value);
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim() !== "") {
-      const newMessage = new Message({ id: 0, message: input });
-      setMessages([...messages, newMessage]);
+      const userMessage = new Message({ id: 0, message: input });
+      setMessages((prevMessages) => [...prevMessages, userMessage]); // Preserve previous messages and add new user message
       setInput("");
+
+      try {
+        const response = await fetch(
+          "http://localhost:5005/webhooks/rest/webhook",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              sender: "user1",
+              message: input,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const responseData = await response.json();
+        const botResponse = responseData[0].text;
+
+        const botMessage = new Message({
+          id: 1,
+          message: botResponse,
+        });
+
+        setMessages((prevMessages) => [...prevMessages, botMessage]); // Preserve previous messages and add new bot message
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -40,10 +74,8 @@ const Chatbot = () => {
   };
 
   useEffect(() => {
-    // Simulate loading effect
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+    // Save messages to session storage whenever messages state changes
+    sessionStorage.setItem("chatMessages", JSON.stringify(messages));
 
     // Scroll down chat feed after messages update
     if (chatFeedRef.current) {
@@ -52,8 +84,7 @@ const Chatbot = () => {
   }, [messages]);
 
   return (
-    <div className={`content-feedback ${loading ? "loading" : ""}`}>
-      {loading && <div className="loading-overlay">Loading...</div>}
+    <div className="content-feedback">
       <div className="content--header">
         <h1 className="header--title">
           <span onClick={dashboardNavigate} style={{ cursor: "pointer" }}>
