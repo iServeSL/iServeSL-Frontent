@@ -3,7 +3,6 @@ import { MdDelete } from "react-icons/md";
 import jsPDF from "jspdf";
 import axios from "axios";
 import Cookies from "js-cookie";
-import sinhalaFont from "../fonts/sinhala.ttf";
 import "../styles/content.css";
 
 const RequestContent = () => {
