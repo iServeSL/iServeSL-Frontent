@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { MdDownload, MdDelete } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import jsPDF from "jspdf";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../styles/content.css";
@@ -58,11 +59,162 @@ const RequestContent = () => {
     }
   };
 
+  const updatePoliceRequestStatus = async (uuidString, newStatus) => {
+    try {
+      await axios.put(`http://localhost:4040/updateStatus/${uuidString}`, {
+        status: newStatus,
+      });
+      setPoliceRequests(
+        policeRequests.map((request) =>
+          request.id === uuidString
+            ? { ...request, status: newStatus }
+            : request
+        )
+      );
+    } catch (error) {
+      console.error("API cannot be accessed: ", error);
+    }
+  };
+
+  const updateGramaRequestStatus = async (uuidString, newStatus) => {
+    try {
+      await axios.put(`http://localhost:8080/updateStatus/${uuidString}`, {
+        status: newStatus,
+      });
+      setGramaRequests(
+        gramaRequests.map((request) =>
+          request.id === uuidString
+            ? { ...request, status: newStatus }
+            : request
+        )
+      );
+    } catch (error) {
+      console.error("API cannot be accessed: ", error);
+    }
+  };
+
   const handleDelete = (id, service) => {
     if (service === "police") {
       deletePoliceRequest(id);
     } else if (service === "grama") {
       deleteGramaRequest(id);
+    }
+  };
+
+  const handleStatusUpdate = (id, service, newStatus) => {
+    if (service === "police") {
+      updatePoliceRequestStatus(id, newStatus);
+    } else if (service === "grama") {
+      updateGramaRequestStatus(id, newStatus);
+    }
+  };
+
+  const downloadPolicePDF = async (request) => {
+    const nic = request.NIC;
+    const uuid = request.id;
+    const currentDate = new Date().toLocaleDateString();
+    console.log(nic);
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8081/getPoliceUserRecord/${nic}`
+      );
+      const doc = new jsPDF();
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text(
+        "Police Character Certificate",
+        doc.internal.pageSize.getWidth() / 2,
+        15,
+        { align: "center" }
+      );
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(12);
+      doc.text(`Ref No: ${uuid}`, 10, 40);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(14);
+      doc.text(`NIC: ${nic}`, 10, 60);
+      doc.text(`Name: ${data[0].fullname}`, 10, 70);
+      doc.text(
+        `Address: ${data[0].address.no}, ${data[0].address.street}, ${data[0].address.village}, ${data[0].address.city}, ${data[0].address.postalcode}`,
+        10,
+        80
+      );
+      doc.text(`Date of Birth: ${data[0].DoB}`, 10, 90);
+      doc.text(`Level of Criminal Records: ${data[0].criminalstatus}`, 10, 100);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(12);
+      const textWidth =
+        (doc.getStringUnitWidth(`Issued Date: ${currentDate}`) *
+          doc.internal.getFontSize()) /
+        doc.internal.scaleFactor;
+      const x = doc.internal.pageSize.getWidth() - 20 - textWidth;
+      doc.text(`Issued Date: ${currentDate}`, x, 140);
+
+      doc.save(`Police_Character_Certificate_${nic}.pdf`);
+    } catch (error) {
+      console.error("Error fetching police user record: ", error);
+    }
+  };
+
+  const downloadGramaPDF = async (request) => {
+    const nic = request.NIC;
+    const uuid = request.id;
+    const currentDate = new Date().toLocaleDateString();
+    console.log(nic);
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8081/getCitizenUserRecord/${nic}`
+      );
+      const doc = new jsPDF();
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text(
+        "Grama Niladhari Certificate",
+        doc.internal.pageSize.getWidth() / 2,
+        15,
+        { align: "center" }
+      );
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(12);
+      doc.text(`Ref No: ${uuid}`, 10, 40);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(14);
+      doc.text(`NIC: ${nic}`, 10, 60);
+      doc.text(`Name: ${data[0].fullname}`, 10, 70);
+      doc.text(
+        `Address: ${data[0].address.no}, ${data[0].address.street}, ${data[0].address.village}, ${data[0].address.city}, ${data[0].address.postalcode}`,
+        10,
+        80
+      );
+      doc.text(`Profession: ${data[0].profession}`, 10, 90);
+      doc.text(`Date of Birth: ${data[0].DoB}`, 10, 100);
+      doc.text(`Marital Status: ${data[0].maritalStatus}`, 10, 110);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(13);
+      doc.text(
+        `I hereby confirm the above details about this person is correct and up-to-date!`,
+        10,
+        140
+      );
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(12);
+      const textWidth =
+        (doc.getStringUnitWidth(`Issued Date: ${currentDate}`) *
+          doc.internal.getFontSize()) /
+        doc.internal.scaleFactor;
+      const x = doc.internal.pageSize.getWidth() - 20 - textWidth;
+      doc.text(`Issued Date: ${currentDate}`, x, 160);
+
+      doc.save(`Grama_Niladhari_Certificate_${nic}.pdf`);
+    } catch (error) {
+      console.error("Error fetching grama user record: ", error);
     }
   };
 
@@ -120,6 +272,7 @@ const RequestContent = () => {
                         type="button"
                         className="btnHoverEffect bg-[#ff7300] text-black rounded-md font-medium py-2 px-7 mr-4"
                         disabled={request.status === "rejected"}
+                        onClick={() => downloadPolicePDF(request)}
                       >
                         Download
                       </button>
@@ -171,6 +324,7 @@ const RequestContent = () => {
                         type="button"
                         className="btnHoverEffect bg-[#ff7300] text-black rounded-md font-medium py-2 px-7 mr-4"
                         disabled={request.status === "rejected"}
+                        onClick={() => downloadGramaPDF(request)}
                       >
                         Download
                       </button>
