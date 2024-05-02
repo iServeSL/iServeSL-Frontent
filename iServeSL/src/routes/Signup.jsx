@@ -302,7 +302,8 @@ const Signup = () => {
                     I accept the{" "}
                     <a
                       className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      href="#"
+                      href="https://github.com/iServeSL/iServeSL-Docs/blob/5e9c2d8bf8c728747802b5b1e0318c87ab8f30f9/iServeSL%20-%20Terms%20%26%20Conditions.md"
+                      target="_blank"
                     >
                       Terms and Conditions
                     </a>
