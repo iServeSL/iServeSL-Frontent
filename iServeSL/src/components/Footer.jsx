@@ -1,3 +1,4 @@
+// Copyright ©2024 SachinAkash01, All rights reserved.
 import React, { useState } from "react";
 import { FaGithub, FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import Logo from "../assets/iServeSL.png";
