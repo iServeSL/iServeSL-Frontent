@@ -1,3 +1,4 @@
+// Copyright ©2024 SachinAkash01, All rights reserved.
 import React, { useState } from "react";
 import { ReactTyped } from "react-typed";
 import { useNavigate } from "react-router-dom";

@@ -1,3 +1,4 @@
+// Copyright ©2024 SachinAkash01, All rights reserved.
 import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import jsPDF from "jspdf";
