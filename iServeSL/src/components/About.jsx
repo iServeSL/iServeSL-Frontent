@@ -35,7 +35,7 @@ const About = () => {
             services is effortless, efficient, and intelligent.
           </p>
           <a
-            href="https://github.com/iServeSL/iServeSL-Docs/blob/e67a99f9cf8675f099cd93e441210af70c93343d/iServeSL%20-%20User%20Guide.md"
+            href="https://github.com/iServeSL/iServeSL-Docs/blob/main/iServeSL%20-%20User%20Guide.md"
             target="_blank"
           >
             <button className="btnHoverEffect bg-[#ff7300] text-black w-[200px] rounded-md font-medium my-6 py-3 flex justify-center">
