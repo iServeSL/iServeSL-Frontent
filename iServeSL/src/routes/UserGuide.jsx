@@ -1,3 +1,4 @@
+// Copyright ©2024 SachinAkash01, All rights reserved.
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import UserGuideContent from "../components/UserGuideContent";
